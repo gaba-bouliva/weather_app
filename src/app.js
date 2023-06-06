@@ -2,6 +2,7 @@ const envVariables = process.env;
 let currentLocation = null;
 let weatherInfo = null;
 let temperatureUnit = 'c' // c for celsius f for fahrenheit
+let forecastNbrDays = 6;
 
 const {
   APP_TITLE,
@@ -27,7 +28,10 @@ async function fetchUserCurrentLocation() {
     if (data.hasOwnProperty('error')) {
       throw(error)
     }else{
-      setLocation(JSON.stringify(data));
+      console.log('No error');
+      const location = {'name': data.city.name, 'country': data.country.name, 'lat': data.location.latitude, 'lon': data.location.longitude}
+
+      setLocation(JSON.stringify(location));
     }
   } catch (error) {
     console.log(error);
@@ -41,7 +45,7 @@ async function fetchWeatherForecast(location, nbrDays) {
   // returns weather forecast for the  location and number of days provided
   try {
 
-    const response = await fetch(`${APP_WEATHER_API_ENDPOINT}?q=${location.city}&key=${APP_WEATHER_API_KEY}&days=${nbrDays}&aqi=no&alerts=no`, {
+    const response = await fetch(`${APP_WEATHER_API_ENDPOINT}?q=${location}&key=${APP_WEATHER_API_KEY}&days=${nbrDays}&aqi=no&alerts=no`, {
       mode: 'cors',
       headers: {
           'Content-Type': 'application/json',
@@ -53,7 +57,8 @@ async function fetchWeatherForecast(location, nbrDays) {
       throw(error)
     }else{
       console.log('Weather forecast info: ', data);
-      setWeatherForecastInfo(JSON.stringify(data));
+      setWeatherForecastInfo(JSON.stringify(data), location);
+      return data
     }
     
   } catch (error) {
@@ -61,13 +66,13 @@ async function fetchWeatherForecast(location, nbrDays) {
   }
 }
 
-function getCurrentLocation () {
+function getCurrentLocation() {
   // return user location data cached in browser local storage
   let locationData = JSON.parse(localStorage.getItem('location'));
-  if ( locationData && locationData.hasOwnProperty('city') && locationData.hasOwnProperty('country')) {
+  if (locationData ) {
     
-    return {'city': locationData.city.name, 'country': locationData.country.name};
-    //return {'city': 'Milan', 'country': 'Italy'};
+    console.log('locationData', locationData);
+    return locationData;
     
   } else { 
     
@@ -75,12 +80,13 @@ function getCurrentLocation () {
   }
 }
 
-function getLocationWeatherForecast(location, nbrDays) {
-  let weatherForecast = JSON.parse(localStorage.getItem('weatherInfo'));
+ async function getLocationWeatherForecast(location, nbrDays) {
+  let weatherForecast = JSON.parse(localStorage.getItem(location));
   if ( weatherForecast ) {
     return weatherForecast;
   } else {
-    fetchWeatherForecast(location, nbrDays);
+    
+    return await fetchWeatherForecast(location, nbrDays);
   }
 }
 
@@ -89,41 +95,44 @@ function setLocation (location) {
  localStorage.setItem('location', location);
 }
 
-function setWeatherForecastInfo (weatherForecastData) {
-  
-  localStorage.setItem('weatherInfo', weatherForecastData);
+function setWeatherForecastInfo (weatherForecastData, location) {
+  localStorage.setItem(location, weatherForecastData);
 }
 
 function displayWeatherForecast (weatherForecasts) {
   /**
    * displays next x days weather forecast
    */
-  for (let i = 0; i < weatherForecasts.length; i++) {
 
-    if (i === 0) {
-      // ignore first forecast (current day forecast)
-      continue;
+  if (weatherForecasts) {
+    for (let i = 0; i < weatherForecasts.length; i++) {
+  
+      if (i === 0) {
+        // ignore first forecast (current day forecast)
+        continue;
+      }
+      const forecast = weatherForecasts[i];
+  
+      let forecastDiv = document.querySelector(`.today-plus-${i}`);
+  
+      forecastDiv.innerHTML = `
+        <h3>${forecast.date}</h3>
+        <div class="weather-icon">
+          <img src="${forecast.day.condition.icon}" class="${forecast.day.condition.text}">
+        </div>
+        <p class="temp">
+              <span class="min-temp">
+                ${ temperatureUnit === 'f' ? forecast.day.mintemp_f : forecast.day.mintemp_c } 
+                ${ temperatureUnit === 'f' ? "<span class='temp-unit'><sup>&deg;</sup>F</span>" : "<span class='temp-unit'><sup>&deg;</sup>C</span> " }
+              </span>
+              <span class="max-temp">
+              ${ temperatureUnit === 'f' ? forecast.day.maxtemp_f : forecast.day.maxtemp_c } 
+              ${ temperatureUnit === 'f' ? "<span class='temp-unit'><sup>&deg;</sup>F</span>" : "<span class='temp-unit'><sup>&deg;</sup>C</span> " } 
+              </span>
+        </p>
+      `
+      
     }
-    const forecast = weatherForecasts[i];
-
-    let forecastDiv = document.querySelector(`.today-plus-${i}`);
-
-    forecastDiv.innerHTML = `
-      <h3>${forecast.date}</h3>
-      <div class="weather-icon">
-        <img src="${forecast.day.condition.icon}" class="${forecast.day.condition.text}">
-      </div>
-      <p class="temp">
-            <span class="min-temp">
-              ${ temperatureUnit === 'f' ? forecast.day.mintemp_f : forecast.day.mintemp_c } 
-              ${ temperatureUnit === 'f' ? "<span class='temp-unit'><sup>&deg;</sup>F</span>" : "<span class='temp-unit'><sup>&deg;</sup>C</span> " }
-            </span>
-            <span class="max-temp">
-            ${ temperatureUnit === 'f' ? forecast.day.maxtemp_f : forecast.day.maxtemp_c } 
-            ${ temperatureUnit === 'f' ? "<span class='temp-unit'><sup>&deg;</sup>F</span>" : "<span class='temp-unit'><sup>&deg;</sup>C</span> " } 
-            </span>
-      </p>
-    `
     
   }
 }
@@ -151,6 +160,7 @@ function displayCurrentWeatherHighlights(currentWeather) {
 }
 
 function displayCurrentLocationWeather (currentWeather, location) {
+  console.log('Location to display: ', location);
   let currentWeatherImg = document.querySelector('.current-weather-icon');
   let currentTemperatureH1 = document.querySelector('.current-temp');
   let weatherDescriptionH2 = document.querySelector('.weather-description');
@@ -178,24 +188,45 @@ function displayCurrentLocationWeather (currentWeather, location) {
 
   weatherDescriptionH2.innerText = `${currentWeather.condition.text}`
   todayDateP.innerText = `Today. ${dayOfWeek}, ${dayOfMonth} ${month}`;
-  citySpan.innerText = `${location.city}`
+  citySpan.innerText = `${location}`
 }
+
+document.querySelector('.search-btn').addEventListener('click', handleSearchLocation);
 
 currentLocation = getCurrentLocation()
 
 if (currentLocation) {
   console.log("Current Location Info: ", currentLocation);
-  weatherInfo = getLocationWeatherForecast(currentLocation, 6);
+
+   getLocationWeatherForecast(currentLocation.name, forecastNbrDays).then( (weatherInfo) => {
+    console.log('weather in global object: ', weatherInfo);
+    if (weatherInfo) {
+      console.log('Weather Forecast Info: ', weatherInfo);
+
+      displayCurrentLocationWeather(weatherInfo.current, currentLocation.name);
+      displayWeatherForecast(weatherInfo.forecast.forecastday);
+      displayCurrentWeatherHighlights(weatherInfo.current);
+    } else {
+      throw('Weather forecast info undefined!');
+    }
+  })
 
 } else {
   throw('Unknown current location!')
 }
 
-if (weatherInfo) {
-  console.log('Weather Forecast Info: ', weatherInfo);
-  displayCurrentLocationWeather(weatherInfo.current, currentLocation);
-  displayWeatherForecast(weatherInfo.forecast.forecastday);
-  displayCurrentWeatherHighlights(weatherInfo.current);
-} else {
-  throw('Weather forecast info undefined!');
+
+ function handleSearchLocation(e) {
+  let searchedLocation = document.querySelector('#location').value.toLowerCase().trim();
+  if (searchedLocation) {
+    
+    getLocationWeatherForecast(searchedLocation, forecastNbrDays).then( (searchedLocationWeather) => {
+      console.log('New location weather forecast: ', searchedLocationWeather);
+      displayCurrentLocationWeather(searchedLocationWeather.current, searchedLocation);
+      displayWeatherForecast(searchedLocationWeather.forecast.forecastday);
+      displayCurrentWeatherHighlights(searchedLocationWeather.current);
+
+    })
+
+  }
 }

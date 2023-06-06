@@ -214,7 +214,7 @@ div.humidity-bar {
   background: #fff;
   height: 8px;
   border-radius: 10px;
-  
+
 }
 
 div.highlights > div > p {
@@ -243,4 +243,26 @@ p.temp {
   display: flex;
   justify-content: space-around;
   width: 100%;
+}
+
+div.search-location { 
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#location {
+  border: 0px;
+  border-bottom: 2px solid gray;
+  background-color: #1E213A;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+#location:focus {
+  outline: none;
+}
+
+.search-btn {
+  cursor: pointer;
 }
