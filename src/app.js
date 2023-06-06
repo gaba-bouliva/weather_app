@@ -116,7 +116,8 @@ function displayWeatherForecast (weatherForecasts) {
       let forecastDiv = document.querySelector(`.today-plus-${i}`);
   
       forecastDiv.innerHTML = `
-        <h3>${forecast.date}</h3>
+       ${ i === 1 ? `<h3>Tomorrow</h3>` : `<h3>${forecast.date}</h3>`}
+        
         <div class="weather-icon">
           <img src="${forecast.day.condition.icon}" class="${forecast.day.condition.text}">
         </div>
