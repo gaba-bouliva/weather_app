@@ -37,7 +37,7 @@ section.weather-forecast {
 }
 section.current-weather {
   width: 30%;
-  height: 100%;
+  min-height: 100%;
   color: #fff;
   background-color: #1E213A;
   font-family: Arial, Helvetica, sans-serif;
@@ -53,15 +53,15 @@ div.forecast > span.temp-unit {
 }
 
 img.current-weather-icon {
-
   max-width: 100%;
+
 }
 
 div.current-weather-details { 
   font-weight: bold;
 }
 div.weather-icon {
-  height: 40%;
+  height: 25%;
   display: flex;
   justify-content: center;
   align-items: end;
@@ -72,7 +72,7 @@ div.current-weather-details {
   flex-direction: column;
   justify-content: end;
   align-items: center;
-  height: 45%;
+  height: 60%;
 
 }
 
@@ -139,7 +139,7 @@ button.current-location {
 }
 
 div.forecast > div.weather-icon > img {
-  width: 50px;
+  max-width: 50px;
 }
 
 div.forecast {
@@ -214,7 +214,7 @@ div.humidity-bar {
   background: #fff;
   height: 8px;
   border-radius: 10px;
-  background-image: linear-gradient(to right, yellow 84%, rgba(0,0,0,0) 84%); 
+  
 }
 
 div.highlights > div > p {
@@ -237,4 +237,10 @@ footer > a {
   font-style: italic;
   color: aqua;
   
+}
+
+p.temp {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
