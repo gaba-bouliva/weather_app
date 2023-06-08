@@ -227,6 +227,13 @@ function capitalizeString(strValue) {
   return capitalizedStr;
 }
 
+function setTempUnit(unit) {
+  if (temperatureUnit !== unit) {
+    temperatureUnit = unit;
+    main();
+  }
+}
+
 
 function main() {
 
@@ -242,6 +249,30 @@ function main() {
  
   let currentLocationBtn = document.querySelector('.live-location');
   currentLocationBtn.addEventListener('click', main);
+
+  let fahrenheitBtn = document.querySelector('.fahrenheit');
+  let celsiusBtn = document.querySelector('.celsius');
+
+
+  fahrenheitBtn.addEventListener('click', (e) => {
+    e.target.style.color = '#000';
+    e.target.style.backgroundColor = '#fff';
+
+    celsiusBtn.style.color = '#E7E7EB';
+    celsiusBtn.style.backgroundColor = '#6E707A';
+
+    setTempUnit('f');
+  });
+
+  celsiusBtn.addEventListener('click', (e) => {
+    e.target.style.color = '#000';
+    e.target.style.backgroundColor = '#fff';
+
+    fahrenheitBtn.style.color = '#E7E7EB';
+    fahrenheitBtn.style.backgroundColor = '#6E707A';
+
+    setTempUnit('c');
+  })
 
   getCurrentLocation().then( (currentLocation) => {
     console.log('Current location', currentLocation);
