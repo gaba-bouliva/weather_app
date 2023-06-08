@@ -207,7 +207,7 @@ function displayCurrentLocationWeather (currentWeather, location) {
  function handleSearchLocation(e) {
   let searchedLocation = document.querySelector('#location').value.toLowerCase().trim();
   if (searchedLocation) {
-    
+    searchedLocation = capitalizeString(searchedLocation);
     getLocationWeatherForecast(searchedLocation, forecastNbrDays).then( (searchedLocationWeather) => {
       console.log('New location weather forecast: ', searchedLocationWeather);
       displayCurrentLocationWeather(searchedLocationWeather.current, searchedLocation);
@@ -219,6 +219,14 @@ function displayCurrentLocationWeather (currentWeather, location) {
   }
 }
 
+function capitalizeString(strValue) {
+  console.log('String before capitalization: ', strValue);
+  let capitalizedArr = strValue.split('');
+  capitalizedArr[0] = capitalizedArr[0].toUpperCase();
+  let capitalizedStr = capitalizedArr.join('');
+  return capitalizedStr;
+}
+
 
 function main() {
 
@@ -227,18 +235,20 @@ function main() {
 
   document.querySelector('#location').addEventListener('keypress', (e) => {
     if (e.keyCode === 13) {
-      console.log('Enter key pressed!');
-      searchBtn.click();
+      // Enter key pressed in search location input 
+      searchBtn.click(); // handleSearchLocation called by clicking search button
     }
   })
  
+  let currentLocationBtn = document.querySelector('.live-location');
+  currentLocationBtn.addEventListener('click', main);
+
   getCurrentLocation().then( (currentLocation) => {
     console.log('Current location', currentLocation);
     getLocationWeatherForecast(currentLocation.name, forecastNbrDays).then( (weatherInfo) => {
       console.log('weather in global object: ', weatherInfo);
       if (weatherInfo) {
         console.log('Weather Forecast Info: ', weatherInfo);
-
         displayCurrentLocationWeather(weatherInfo.current, currentLocation.name);
         displayWeatherForecast(weatherInfo.forecast.forecastday);
         displayCurrentWeatherHighlights(weatherInfo.current);
