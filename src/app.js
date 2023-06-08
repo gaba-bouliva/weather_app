@@ -32,11 +32,11 @@ async function fetchUserCurrentLocation() {
       const location = {'name': data.city.name, 'country': data.country.name, 'lat': data.location.latitude, 'lon': data.location.longitude}
 
       setLocation(JSON.stringify(location));
+      return location;
     }
   } catch (error) {
     console.log(error);
   }
-  getCurrentLocation();
 
 }
 
@@ -66,7 +66,7 @@ async function fetchWeatherForecast(location, nbrDays) {
   }
 }
 
-function getCurrentLocation() {
+async function getCurrentLocation() {
   // return user location data cached in browser local storage
   let locationData = JSON.parse(localStorage.getItem('location'));
   if (locationData ) {
@@ -74,10 +74,13 @@ function getCurrentLocation() {
     console.log('locationData', locationData);
     return locationData;
     
-  } else { 
-    
-    fetchUserCurrentLocation()
+  } else {   
+
+    console.log('Fetching for user current location...');
+    return await fetchUserCurrentLocation();
+
   }
+
 }
 
  async function getLocationWeatherForecast(location, nbrDays) {
@@ -93,11 +96,19 @@ function getCurrentLocation() {
 function setLocation (location) {
   // saves/caches current user location data to browser local storage
  localStorage.setItem('location', location);
+ setTimeout(() => {
+  localStorage.removeItem('location');
+ }, 1800000); // after 30 mins current user location is removed from localStorage 
 }
 
 function setWeatherForecastInfo (weatherForecastData, location) {
   localStorage.setItem(location, weatherForecastData);
+  setTimeout(() => {
+    localStorage.removeItem(location)
+   }, 3600000); // after 3 hrs weatherForeCastData is removed from localStorage 
+
 }
+
 
 function displayWeatherForecast (weatherForecasts) {
   /**
@@ -192,30 +203,6 @@ function displayCurrentLocationWeather (currentWeather, location) {
   citySpan.innerText = `${location}`
 }
 
-document.querySelector('.search-btn').addEventListener('click', handleSearchLocation);
-
-currentLocation = getCurrentLocation()
-
-if (currentLocation) {
-  console.log("Current Location Info: ", currentLocation);
-
-   getLocationWeatherForecast(currentLocation.name, forecastNbrDays).then( (weatherInfo) => {
-    console.log('weather in global object: ', weatherInfo);
-    if (weatherInfo) {
-      console.log('Weather Forecast Info: ', weatherInfo);
-
-      displayCurrentLocationWeather(weatherInfo.current, currentLocation.name);
-      displayWeatherForecast(weatherInfo.forecast.forecastday);
-      displayCurrentWeatherHighlights(weatherInfo.current);
-    } else {
-      throw('Weather forecast info undefined!');
-    }
-  })
-
-} else {
-  throw('Unknown current location!')
-}
-
 
  function handleSearchLocation(e) {
   let searchedLocation = document.querySelector('#location').value.toLowerCase().trim();
@@ -231,3 +218,28 @@ if (currentLocation) {
 
   }
 }
+
+
+function main() {
+
+  document.querySelector('.search-btn').addEventListener('click', handleSearchLocation);
+ 
+  getCurrentLocation().then( (currentLocation) => {
+    console.log('Current location', currentLocation);
+    getLocationWeatherForecast(currentLocation.name, forecastNbrDays).then( (weatherInfo) => {
+      console.log('weather in global object: ', weatherInfo);
+      if (weatherInfo) {
+        console.log('Weather Forecast Info: ', weatherInfo);
+
+        displayCurrentLocationWeather(weatherInfo.current, currentLocation.name);
+        displayWeatherForecast(weatherInfo.forecast.forecastday);
+        displayCurrentWeatherHighlights(weatherInfo.current);
+      } else {
+        throw('Weather forecast info undefined!');
+      }
+    })
+  })
+
+}
+
+main()
