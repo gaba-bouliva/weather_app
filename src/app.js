@@ -1,5 +1,5 @@
 const envVariables = process.env;
-let currentLocation = null;
+let currentUsrLocation = null;
 let weatherInfo = null;
 let temperatureUnit = 'c' // c for celsius f for fahrenheit
 let forecastNbrDays = 6;
@@ -208,13 +208,20 @@ function displayCurrentLocationWeather (currentWeather, location) {
   let searchedLocation = document.querySelector('#location').value.toLowerCase().trim();
   if (searchedLocation) {
     searchedLocation = capitalizeString(searchedLocation);
-    getLocationWeatherForecast(searchedLocation, forecastNbrDays).then( (searchedLocationWeather) => {
-      console.log('New location weather forecast: ', searchedLocationWeather);
-      displayCurrentLocationWeather(searchedLocationWeather.current, searchedLocation);
-      displayWeatherForecast(searchedLocationWeather.forecast.forecastday);
-      displayCurrentWeatherHighlights(searchedLocationWeather.current);
-
-    })
+    console.log('currentLocation', );
+    if (currentUsrLocation !== searchedLocation) {
+      getLocationWeatherForecast(searchedLocation, forecastNbrDays).then( (searchedLocationWeather) => {
+        console.log('New location weather forecast: ', searchedLocationWeather);
+        displayCurrentLocationWeather(searchedLocationWeather.current, searchedLocation);
+        displayWeatherForecast(searchedLocationWeather.forecast.forecastday);
+        displayCurrentWeatherHighlights(searchedLocationWeather.current);
+  
+      })
+      
+      let liveLocationBtn = document.querySelector('.live-location');
+      liveLocationBtn.style.backgroundColor = '#6E707A';
+      liveLocationBtn.style.color = '#E7E7EB';
+    }
 
   }
 }
@@ -235,7 +242,39 @@ function setTempUnit(unit) {
 }
 
 
-function main() {
+function main(e) {
+
+  if (e) {
+    // live location btn clicked 
+
+    let liveLocationBtnEl = null;
+    let liveLocationTxtColor = '';
+    let liveLocationBgColor = '';
+
+    if (e.target.tagName === 'SPAN') {
+      // if span containing live location icon is clicked return parent el which is btn element 
+      liveLocationBtnEl = e.target.parentNode; 
+    } else if (e.target.tagName === 'BUTTON') {
+      liveLocationBtnEl = e.target;
+    }
+
+    liveLocationTxtColor = liveLocationBtnEl.style.color;
+    liveLocationBgColor = liveLocationBtnEl.style.backgroundColor;
+  
+    if (liveLocationTxtColor === 'rgb(0, 0, 0)' && liveLocationBgColor === 'rgb(255, 255, 255)' ) {
+      // live location btn already active and clicked
+      return
+    }
+  
+  }
+
+  let liveLocationBtn = document.querySelector('.live-location');
+  liveLocationBtn.style.backgroundColor = '#fff';
+  liveLocationBtn.style.color = '#000';
+  liveLocationBtn.addEventListener('click', main);
+
+  console.log('liveLocationBtn color: ', liveLocationBtn.style.color);
+
 
   let searchBtn = document.querySelector('.search-btn');
   searchBtn.addEventListener('click', handleSearchLocation);
@@ -247,8 +286,6 @@ function main() {
     }
   })
  
-  let currentLocationBtn = document.querySelector('.live-location');
-  currentLocationBtn.addEventListener('click', main);
 
   let fahrenheitBtn = document.querySelector('.fahrenheit');
   let celsiusBtn = document.querySelector('.celsius');
@@ -275,7 +312,11 @@ function main() {
   })
 
   getCurrentLocation().then( (currentLocation) => {
+    if(!currentLocation.hasOwnProperty('name')) {
+      location.reload();
+    }
     console.log('Current location', currentLocation);
+    currentUsrLocation = currentLocation.name;
     getLocationWeatherForecast(currentLocation.name, forecastNbrDays).then( (weatherInfo) => {
       console.log('weather in global object: ', weatherInfo);
       if (weatherInfo) {

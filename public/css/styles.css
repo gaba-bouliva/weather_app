@@ -115,6 +115,11 @@ header.temp-units > button {
   font-weight: bold;
 }
 
+header.temp-units > button.celsius {
+  color: #000;
+  background-color: #fff;
+}
+
 header.current-location > button{
   background-color: #6E707A;
   color: #E7E7EB;
