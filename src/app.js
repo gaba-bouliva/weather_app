@@ -26,7 +26,7 @@ async function fetchUserCurrentLocation() {
     
     console.log('user location data: ', data);
     if (data.hasOwnProperty('error')) {
-      throw(error)
+      throw(data.error)
     }else{
       console.log('No error');
       const location = {'name': data.city.name, 'country': data.country.name, 'lat': data.location.latitude, 'lon': data.location.longitude}
@@ -54,7 +54,7 @@ async function fetchWeatherForecast(location, nbrDays) {
     const data = await response.json();
     
     if (data.hasOwnProperty('error')) {
-      throw(error)
+      throw(data.error)
     }else{
       console.log('Weather forecast info: ', data);
       setWeatherForecastInfo(JSON.stringify(data), location);
@@ -222,7 +222,15 @@ function displayCurrentLocationWeather (currentWeather, location) {
 
 function main() {
 
-  document.querySelector('.search-btn').addEventListener('click', handleSearchLocation);
+  let searchBtn = document.querySelector('.search-btn');
+  searchBtn.addEventListener('click', handleSearchLocation);
+
+  document.querySelector('#location').addEventListener('keypress', (e) => {
+    if (e.keyCode === 13) {
+      console.log('Enter key pressed!');
+      searchBtn.click();
+    }
+  })
  
   getCurrentLocation().then( (currentLocation) => {
     console.log('Current location', currentLocation);
