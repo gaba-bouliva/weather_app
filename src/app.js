@@ -40,6 +40,29 @@ async function fetchUserCurrentLocation() {
 
 }
 
+function incrementDate(days) {
+
+  const today = new Date()
+  const futureDate = new Date(today)
+  futureDate.setDate(today.getDate() + days)
+ 
+  return futureDate.toString();
+}
+
+function formatDate(unformattedDate) {
+  
+  let formattedDate = '';
+
+  let unformattedDateArr = unformattedDate.split(' ');
+  let dayOfMonth = unformattedDateArr[2];
+  let month = unformattedDateArr[1];
+  let dayOfWeek = unformattedDateArr[0];
+
+  formattedDate = `${dayOfWeek}, ${dayOfMonth} ${month}`;
+ 
+  return formattedDate;
+}
+
 
 async function fetchWeatherForecast(location, nbrDays) {
   // returns weather forecast for the  location and number of days provided
@@ -116,18 +139,20 @@ function displayWeatherForecast (weatherForecasts) {
    */
 
   if (weatherForecasts) {
+    let forecastDate = '';
     for (let i = 0; i < weatherForecasts.length; i++) {
-  
+      
       if (i === 0) {
         // ignore first forecast (current day forecast)
         continue;
       }
+      
+      forecastDate = formatDate(incrementDate(i)); 
       const forecast = weatherForecasts[i];
-  
       let forecastDiv = document.querySelector(`.today-plus-${i}`);
   
       forecastDiv.innerHTML = `
-       ${ i === 1 ? `<h3>Tomorrow</h3>` : `<h3>${forecast.date}</h3>`}
+       ${ i === 1 ? `<h3>Tomorrow</h3>` : `<h3>${forecastDate}</h3>`}
         
         <div class="weather-icon">
           <img src="${forecast.day.condition.icon}" class="${forecast.day.condition.text}">
@@ -171,6 +196,7 @@ function displayCurrentWeatherHighlights(currentWeather) {
   
 }
 
+
 function displayCurrentLocationWeather (currentWeather, location) {
   console.log('Location to display: ', location);
   let currentWeatherImg = document.querySelector('.current-weather-icon');
@@ -178,11 +204,8 @@ function displayCurrentLocationWeather (currentWeather, location) {
   let weatherDescriptionH2 = document.querySelector('.weather-description');
   let todayDateP = document.querySelector('.today-date');
   let citySpan = document.querySelector('.city');
-
-  let currentDateArr = Date().split(' ');
-  let dayOfMonth = currentDateArr[2];
-  let month = currentDateArr[1];
-  let dayOfWeek = currentDateArr[0];
+  let currentDate = formatDate(Date())
+ 
 
   currentWeatherImg.setAttribute('src', `${currentWeather.condition.icon}`);
   currentWeatherImg.setAttribute('alt', `${currentWeather.condition.text}`);
@@ -199,7 +222,7 @@ function displayCurrentLocationWeather (currentWeather, location) {
   }
 
   weatherDescriptionH2.innerText = `${currentWeather.condition.text}`
-  todayDateP.innerText = `Today. ${dayOfWeek}, ${dayOfMonth} ${month}`;
+  todayDateP.innerText = `Today. ${currentDate}`;
   citySpan.innerText = `${location}`
 }
 
@@ -262,7 +285,7 @@ function main(e) {
     liveLocationBgColor = liveLocationBtnEl.style.backgroundColor;
   
     if (liveLocationTxtColor === 'rgb(0, 0, 0)' && liveLocationBgColor === 'rgb(255, 255, 255)' ) {
-      // live location btn already active and clicked
+      // live location btn already active or clicked
       return
     }
   
@@ -272,8 +295,6 @@ function main(e) {
   liveLocationBtn.style.backgroundColor = '#fff';
   liveLocationBtn.style.color = '#000';
   liveLocationBtn.addEventListener('click', main);
-
-  console.log('liveLocationBtn color: ', liveLocationBtn.style.color);
 
 
   let searchBtn = document.querySelector('.search-btn');
