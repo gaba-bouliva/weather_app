@@ -90,6 +90,11 @@ p.location {
   
 }
 
+span.city {
+  min-width: 100%;
+  font-size: 1.2rem;
+}
+
 section.current-weather > header {
   height: 100px;
   display: flex;
@@ -289,7 +294,6 @@ div.search-location {
 .container {
   width: 100%;
   margin-right: auto;
-  border: 1px solid red;
 }
 
 
