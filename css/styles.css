@@ -1,0 +1,408 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  background-color: #100E1D;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+main {
+  min-height: 100vh;
+  min-width: 100%;
+  display: flex;
+}
+
+.current-weather-bg {
+  max-width: 100%;
+  opacity: 0.09;
+  position: absolute;
+  left: -70px;
+  top: 50px;
+
+}
+section.weather-highlights { 
+  background-color: #100E1D;
+  z-index: 1;
+  width: 70%;
+  height: 100%;
+  color: #fff;
+
+}
+
+section.weather-forecast {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+section.current-weather {
+  min-width: 30%;
+  min-height: 100%;
+  color: #fff;
+  background-color: #1E213A;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-left: 5px;
+  padding-right: 10px
+}
+
+h1.current-temp {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+div.forecast > span.temp-unit { 
+  font-size: 1.5rem;
+}
+
+img.current-weather-icon {
+  max-width: 100%;
+
+}
+
+div.current-weather-details { 
+  font-weight: bold;
+}
+div.weather-icon {
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.current-weather-details { 
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  max-height: 60%;
+
+}
+
+p.location {
+  display: flex;
+  width: 100px;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+section.current-weather > header {
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+section.weather-highlights > header {
+  height: 50px;
+  width: 90%;
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+  align-items: center;
+
+}
+
+header.temp-units > button {
+  background-color: #6E707A;
+  color: #E7E7EB;
+  cursor: pointer;
+  height: 40px;
+  text-align: center;
+  border: 1px solid #6E707A;
+  border-radius: 50%;
+  width: 40px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+header.temp-units > button.celsius {
+  color: #000;
+  background-color: #fff;
+}
+
+header.current-location > button{
+  background-color: #6E707A;
+  color: #E7E7EB;
+  cursor: pointer;
+  height: 40px;
+  text-align: center;
+  border: 1px solid #6E707A;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+button.search-location {
+  padding: 10px 20px;
+
+}
+
+button.current-location {
+  border-radius: 50%;
+  width: 40px;
+}
+
+div.forecast > div.weather-icon > img {
+  max-width: 50px;
+}
+
+div.forecast {
+  background-color: #1E213A;
+  min-width: 143px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+section.today-highlights {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+section.today-highlights > h1 {
+  font-size: 1.5rem;
+  width: 80%;
+  justify-self: start;
+  font-family: Arial, Helvetica, sans-serif;
+  
+  
+}
+
+div.highlights {
+  max-width: 80%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 400px));
+  grid-template-rows: repeat(2, 187px);
+  gap: 0.5rem;
+
+}
+
+div.highlights > div {
+  background-color: #1E213A;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+
+}
+
+div.highlights > div > p {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+div.humidity-values, div.humidity-percentage, div.humidity-bar {
+  display: block;
+  font-size: 0.8rem;
+  width: 70%;
+}
+
+div.humidity-values {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 5px;
+  padding-left: 5px;
+}
+
+div.humidity-percentage {
+  display: flex;
+  justify-content: end;
+  margin-block-end: 1rem;
+  margin-right: 5px;
+}
+
+
+div.humidity-bar {
+  background: #fff;
+  height: 8px;
+  border-radius: 10px;
+
+}
+
+div.highlights > div > p {
+  margin-block-start: 0.5rem;
+  margin-block-end: 1rem;
+}
+
+div.highlights > div > h3 {
+  font-size: 1rem;
+
+}
+
+footer  {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  text-align: center;
+  height: 50px;
+  padding: 10px;
+}
+footer > p {
+  margin-block: 0px;
+}
+footer > p > a {
+  text-decoration: none;
+  font-style: italic;
+  color: aqua;
+
+}
+
+p.temp {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+div.search-location { 
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+ 
+}
+
+#location {
+  border: 0px;
+  border-bottom: 2px solid gray;
+  background-color: #1E213A;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+#location:focus {
+  outline: none;
+}
+
+.search-btn {
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  border: 1px solid red;
+}
+
+
+
+@media (max-width: 675px) {
+
+  section {
+    font-size: 0.8rem;
+  }
+
+  h1.current-temp { 
+   font-size: 3rem;
+   max-height: 30px;
+  }
+
+  span.temp-unit { 
+    font-size: 2rem;
+    font-weight: lighter;
+    color: #6E707A;
+  }
+  
+  main { 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  section.current-weather, section.weather-forecast, section.today-highlights { 
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  section.weather-highlights > header.temp-units { 
+    visibility: hidden;
+  }
+
+  section.weather-forecast {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2,  1fr);
+    grid-template-rows: repeat(3, 150px);
+    gap: 0.5rem;
+    
+  }
+
+  section.weather-forecast > div.today-plus-5 {
+   
+ 
+  }
+
+  section.weather-forecast > div.forecast { 
+    font-size: 0.8rem;
+    min-width: 110px;
+  }
+
+  span > span.temp-unit {
+    font-size: 0.8rem;
+  }
+
+  div.highlights  { 
+    max-width: 80%;
+    grid-template-columns: repeat(auto-fit, 250px);
+    gap: 2rem;
+    
+  }
+  /* section.today-highlights {
+    max-width: 50%;
+  } */
+  section.today-highlights > h1 { 
+    margin-left: 0px;
+  }
+  section.today-highlights > div.highlights > div{
+    max-width: 100%;
+  }
+  .container {
+    max-width: 640px;
+  }
+
+
+}
+
+@media (max-width: 899px) {
+
+  section.current-weather {
+    min-height: 100vh;
+  }
+  div.current-weather-details {
+    min-height: 500px;
+    gap: 20px;
+    justify-content: center;
+  }
+  section.today-highlights > h1 { 
+    margin-left: 55px;
+  }
+  div.highlights  { 
+    grid-template-columns: repeat(auto-fit, 250px);
+    gap: 2rem;
+    
+  }
+
+  div.search-location { 
+    margin-left: 5px;
+  
+  }
+
+  section.today-highlights > div.highlights > div{
+    max-width: 100%;
+  }
+
+}
+
+
+
+
+
+ 

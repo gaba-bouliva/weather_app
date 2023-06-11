@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/sun.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <title>Weather App</title>
+</head>
+<body>
+  <main class="container">
+    <section class="current-weather">
+      <img src="images/Cloud-background.png" alt="cloud-bg" class="current-weather-bg">
+      <header class="current-location">
+        <div class="search-location">
+
+          <input type="text" name="location" id="location" placeholder="Search location">
+          <span class="material-icons search-btn">search</span>
+        </div>
+        <button class="current-location live-location">
+          <span class="material-icons">
+          my_location
+          </span>
+        </button>
+      </header>
+      <div class="weather-icon">
+        <img src="images/Shower.png" alt="light-rain" class="current-weather-icon">
+      </div>
+   
+      <div class="current-weather-details">
+        <h1 class="current-temp"></h1>
+        <h2 class="weather-description">Rainy</h2>
+
+        <p class="today-date"></p>
+        <p class="location">
+          <span class="material-icons">location_on</span>
+          <span class="city"></span>
+        </p>
+
+      </div>
+    </section>
+    <section class="weather-highlights">
+      <header class="temp-units">
+          <button class="celsius">&deg;C</button>
+          <button class="fahrenheit">&deg;F</button>
+      </header>
+      <section class="weather-forecast">
+        <div class="forecast today-plus-1">
+          <h3 class=>Tomorrow</h3>
+          <div class="weather-icon">
+            <img src="images/Thunderstorm.png" alt="light-rain">
+          </div>
+          <p class="temp">
+            20 
+            <span class="temp-unit">&deg;C</span> 
+          </p>
+        </div>
+        <div class="forecast today-plus-2">
+          <h3>Sun, 7 Jun</h3>
+          <div class="weather-icon">
+            <img src="images/Clear.png" alt="light-rain" class="current-weather-icon">
+          </div>
+          <p class="temp">
+            <span class="min-temp">
+              20 
+              <span class="temp-unit"><sup>&deg;</sup>C</span> 
+            </span>
+            <span class="max-temp">
+              23 
+              <span class="temp-unit"><sup>&deg;</sup>C</span> 
+            </span>
+          </p>
+        </div>
+        <div class="forecast today-plus-3">
+          <h3>Mon, 8 Jun</h3>
+          <div class="weather-icon">
+            <img src="images/HeavyRain.png" alt="light-rain" class="current-weather-icon">
+          </div>
+          <p class="temp">
+            15 
+            <span class="temp-unit"><sup>&deg;</sup>C</span> 
+          </p>
+        </div>
+        <div class="forecast today-plus-4">
+          <h3>Tue, 9 Jun</h3>
+          <div class="weather-icon">
+            <img src="images/LightCloud.png" alt="light-rain" class="current-weather-icon">
+          </div>
+          <p class="temp">
+            18 
+            <span class="temp-unit"><sup>&deg;</sup>C</span> 
+          </p>
+        </div>
+        
+        <div class="forecast today-plus-5">
+          <h3>Wed, 10 Jun</h3>
+          <div class="weather-icon">
+            <img src="images/LightRain.png" alt="light-rain" class="current-weather-icon">
+          </div>
+          <p class="temp">
+            17 
+            <span class="temp-unit"><sup>&deg;</sup>C</span> 
+          </p>
+        </div>
+  
+      </section>
+      <section class="today-highlights">
+        <h1>Today's Highlights</h1>
+        <div class="highlights">
+          <div class="wind">
+            <h3>Wind status</h3>
+            <p class="wind-status">7<span>mph</span></p>
+          </div>
+          <div class="humidity">
+            <h3>Humidity</h3>
+            <p class="humidity-status">84<span>%</span></p>
+              <div class="humidity-values"><span> 0</span> <span>50</span> <span>100</span></div>   
+              <div class="humidity-bar"></div>
+              <div class="humidity-percentage">%</div>
+          </div>
+          <div class="visibility">
+            <h3>Visibility</h3>
+            <p class="visibility-status">6,4<span>miles</span></p>
+          </div>
+          <div class="air-pressure">
+            <h3>Air Pressure</h3>
+            <p class="air-pressure-status">998 <span>mb</span></p>
+          </div>
+        </div>
+      </section>
+      <footer>
+        <p>
+          Design by <a href="http://devChallenges.io">devChallenges</a> Realized by <a href="https://github.com/gaba-bouliva">gaba-bouliva</a> @2023
+        </p>
+      </footer>
+    </section>
+  </main>
+  
+  <script src="app.js"></script>
+</body>
+</html>
