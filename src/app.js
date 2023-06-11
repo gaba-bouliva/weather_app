@@ -333,11 +333,10 @@ function main(e) {
   })
 
   getCurrentLocation().then( (currentLocation) => {
-    if(!currentLocation.hasOwnProperty('name')) {
-      location.reload();
-    }
-    console.log('Current location', currentLocation);
-    currentUsrLocation = currentLocation.name;
+    // userLocation from localStorage uses property name to return location string
+    // userLocation from API uses city.name to return location string
+    currentUsrLocation = '';
+    currentLocation.hasOwnProperty('name') ? currentUsrLocation = currentLocation.name : currentUsrLocation = currentLocation.city.name;
     getLocationWeatherForecast(currentLocation.name, forecastNbrDays).then( (weatherInfo) => {
       console.log('weather in global object: ', weatherInfo);
       if (weatherInfo) {

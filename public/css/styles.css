@@ -9,7 +9,8 @@ body {
 }
 
 main {
-  height: 100vh;
+  min-height: 100vh;
+  min-width: 100%;
   display: flex;
 }
 
@@ -33,14 +34,18 @@ section.weather-highlights {
 section.weather-forecast {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 25px;
 }
+
 section.current-weather {
-  width: 30%;
+  min-width: 30%;
   min-height: 100%;
   color: #fff;
   background-color: #1E213A;
   font-family: Arial, Helvetica, sans-serif;
+  padding-left: 5px;
+  padding-right: 10px
 }
 
 h1.current-temp {
@@ -64,15 +69,15 @@ div.weather-icon {
   height: 25%;
   display: flex;
   justify-content: center;
-  align-items: end;
+  align-items: center;
 }
 
 div.current-weather-details { 
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: start;
   align-items: center;
-  height: 60%;
+  max-height: 60%;
 
 }
 
@@ -149,7 +154,7 @@ div.forecast > div.weather-icon > img {
 
 div.forecast {
   background-color: #1E213A;
-  width: 180px;
+  min-width: 143px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -165,15 +170,17 @@ section.today-highlights {
 
 section.today-highlights > h1 {
   font-size: 1.5rem;
-  align-self: start;
-  margin-left: 100px;
+  width: 80%;
+  justify-self: start;
   font-family: Arial, Helvetica, sans-serif;
+  
+  
 }
 
 div.highlights {
-  width: 80%;
+  max-width: 80%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 400px);
+  grid-template-columns: repeat(2, minmax(260px, 400px));
   grid-template-rows: repeat(2, 187px);
   gap: 0.5rem;
 
@@ -181,7 +188,7 @@ div.highlights {
 
 div.highlights > div {
   background-color: #1E213A;
-  width: 400px;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -232,16 +239,22 @@ div.highlights > div > h3 {
 
 }
 
-footer {
+footer  {
+  display: flex;
+  justify-content: center;
+  align-items: end;
   text-align: center;
+  height: 50px;
   padding: 10px;
 }
-
-footer > a {
+footer > p {
+  margin-block: 0px;
+}
+footer > p > a {
   text-decoration: none;
   font-style: italic;
   color: aqua;
-  
+
 }
 
 p.temp {
@@ -253,7 +266,8 @@ p.temp {
 div.search-location { 
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 5px;
+ 
 }
 
 #location {
@@ -271,3 +285,124 @@ div.search-location {
 .search-btn {
   cursor: pointer;
 }
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  border: 1px solid red;
+}
+
+
+
+@media (max-width: 675px) {
+
+  section {
+    font-size: 0.8rem;
+  }
+
+  h1.current-temp { 
+   font-size: 3rem;
+   max-height: 30px;
+  }
+
+  span.temp-unit { 
+    font-size: 2rem;
+    font-weight: lighter;
+    color: #6E707A;
+  }
+  
+  main { 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  section.current-weather, section.weather-forecast, section.today-highlights { 
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  section.weather-highlights > header.temp-units { 
+    visibility: hidden;
+  }
+
+  section.weather-forecast {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2,  1fr);
+    grid-template-rows: repeat(3, 150px);
+    gap: 0.5rem;
+    
+  }
+
+  section.weather-forecast > div.today-plus-5 {
+   
+ 
+  }
+
+  section.weather-forecast > div.forecast { 
+    font-size: 0.8rem;
+    min-width: 110px;
+  }
+
+  span > span.temp-unit {
+    font-size: 0.8rem;
+  }
+
+  div.highlights  { 
+    max-width: 80%;
+    grid-template-columns: repeat(auto-fit, 250px);
+    gap: 2rem;
+    
+  }
+  /* section.today-highlights {
+    max-width: 50%;
+  } */
+  section.today-highlights > h1 { 
+    margin-left: 0px;
+  }
+  section.today-highlights > div.highlights > div{
+    max-width: 100%;
+  }
+  .container {
+    max-width: 640px;
+  }
+
+
+}
+
+@media (max-width: 899px) {
+
+  section.current-weather {
+    min-height: 100vh;
+  }
+  div.current-weather-details {
+    min-height: 500px;
+    gap: 20px;
+    justify-content: center;
+  }
+  section.today-highlights > h1 { 
+    margin-left: 55px;
+  }
+  div.highlights  { 
+    grid-template-columns: repeat(auto-fit, 250px);
+    gap: 2rem;
+    
+  }
+
+  div.search-location { 
+    margin-left: 5px;
+  
+  }
+
+  section.today-highlights > div.highlights > div{
+    max-width: 100%;
+  }
+
+}
+
+
+
+
+
+ 
