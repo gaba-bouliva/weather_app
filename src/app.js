@@ -15,12 +15,6 @@ const {
 
 console.log('process.env', process.env);
 
-console.log('APP_TITLE: ', APP_TITLE);
-  
-console.log('APP_WEATHER_API_ENDPOINT', APP_WEATHER_API_ENDPOINT);
-
-console.log('APP_IP_INFO_API_KEY,', APP_IP_INFO_API_KEY);
-
 async function fetchUserCurrentLocation() {
   // retrieves user IP location data from api
   try {
