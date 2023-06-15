@@ -19,6 +19,12 @@ jobs:
         with:
           node-version: 18.x
 
+      - name: Decode base64 secrets
+        run: echo $APP_WEATHER_API_KEY
+        env:
+          APP_WEATHER_API_KEY: ${{ secrets.APP_WEATHER_API_KEY }}
+          APP_IP_INFO_API_KEY: ${{ secrets.APP_IP_INFO_API_KEY }}
+
       - name: Install Dependencies (prod)
         run: npm install
 
@@ -27,5 +33,6 @@ jobs:
           npm run build
         env:
           CI: true
+          run: echo $APP_IP_INFO_API_KEY
           APP_WEATHER_API_KEY: ${{ secrets.APP_WEATHER_API_KEY}}
           APP_IP_INFO_API_KEY: ${{ secrets.APP_IP_INFO_API_KEY}}
