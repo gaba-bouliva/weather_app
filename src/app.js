@@ -13,7 +13,7 @@ const {
   APP_IP_INFO_ENDPOINT,
 }  = envVariables;
 
-console.log('process.env', process.env);
+console.log('process.env : ', process.env);
 
 async function fetchUserCurrentLocation() {
   // retrieves user IP location data from api
