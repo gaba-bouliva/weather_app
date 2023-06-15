@@ -31,7 +31,7 @@ Realized by <a href="https://github.com/gaba-bouliva" target="_blank">Gaba Bouli
 
 - [Overview](#overview)
   - [Built With](#built-with)
-- [Features](#features)
+<!-- - [Features](#features) -->
 - [How to use](#how-to-use)
 - [Contact](#contact)
 - [Acknowledgements](#acknowledgements)
