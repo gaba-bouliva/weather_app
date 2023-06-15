@@ -1,6 +1,6 @@
 const path = require("path");
 const webpack = require('webpack');
-
+console.log('process.env in ')
 const dotenv = require('dotenv').config( {
     path: path.join(__dirname, '.env')
   } );
