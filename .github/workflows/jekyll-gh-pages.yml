@@ -48,6 +48,9 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+      with:
+        APP_WEATHER_API_KEY: ${{ secrets.APP_WEATHER_API_KEY }}
+        APP_IP_INFO_ENDPOINT: ${{ secrets.APP_IP_INFO_ENDPOINT }}
 
     runs-on: ubuntu-latest
     needs: build
