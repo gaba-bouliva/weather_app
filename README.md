@@ -11,11 +11,11 @@ Realized by <a href="https://github.com/gaba-bouliva" target="_blank">Gaba Bouli
 
 <div align="center">
   <h3>
-    <a href="https://gaba-bouliva.github.io/weather_app/public/">
+    <a href="https://gaba-bouliva-weather-app.netlify.app">
       Demo
     </a>
     <span> | </span>
-    <a href="https://gaba-bouliva.github.io/weather_app/public/">
+    <a href="https://gaba-bouliva-weather-app.netlify.app">
       Solution
     </a>
     <span> | </span>
@@ -31,8 +31,7 @@ Realized by <a href="https://github.com/gaba-bouliva" target="_blank">Gaba Bouli
 
 - [Overview](#overview)
   - [Built With](#built-with)
-<!-- - [Features](#features) -->
-- [How to use](#how-to-use)
+- [Features](#features)
 - [Contact](#contact)
 - [Acknowledgements](#acknowledgements)
 
@@ -57,28 +56,24 @@ Realized by <a href="https://github.com/gaba-bouliva" target="_blank">Gaba Bouli
 - [CSS]
 - [JavaScript]
 
-<!-- ## Features -->
+## Features
 
-<!-- List the features of your application or follow the template. Don't share the figma file here :) -->
-<!-- 
-This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://devchallenges.io/challenges/mM1UIenRhK808W8qmLWv) was to build an application to complete the given user stories. -->
+List the features of your application or follow the template. Don't share the figma file here :) -->
 
-## How To Use
+This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges/mM1UIenRhK808W8qmLWv) and as a submission to [TheOdinProject](https://www.theodinproject.com/lessons/node-path-javascript-weather-app). Both challenges had as exercise to build a weather application to complete the given user stories
 
-<!-- Example: -->
-
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
-```bash
-# Clone this repository
-$ git clone https://github.com/gaba-bouliva/weather_app
-
-# Install dependencies
-$ npm install
-
-# Run the app
-$ npm run build
-```
+- User can see city weather as default, preferably my current location
+- User can search for city
+- User can see weather of today and the next 5 days
+- User can see the date and location of the weather
+- User can see according to image for each type of weather
+- User can see the min and max degree each day
+- User can see wind status and wind direction
+- User can see humidity percentage
+- User can see a visibility indicator
+- User can see the air pressure number
+- (optional): User can request my current location weather
+- (optional): User can convert temperature in Celcius to Fahrenheit and vice versa
 
 ## Acknowledgements
 
