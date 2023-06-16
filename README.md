@@ -58,8 +58,6 @@ Realized by <a href="https://github.com/gaba-bouliva" target="_blank">Gaba Bouli
 
 ## Features
 
-List the features of your application or follow the template. Don't share the figma file here :) -->
-
 This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges/mM1UIenRhK808W8qmLWv) and as a submission to [TheOdinProject](https://www.theodinproject.com/lessons/node-path-javascript-weather-app). Both challenges had as exercise to build a weather application to complete the given user stories
 
 - User can see city weather as default, preferably my current location
@@ -81,6 +79,7 @@ This application/site was created as a submission to a [DevChallenges](https://d
 
 - [Node.js](https://nodejs.org/)
 - [Webpack](https://webpack.js.org/)
+- [netlify](https://www.netlify.com/)
 
 ## Contact
 
