@@ -17,8 +17,10 @@ console.log('process.env -> ', process.env);
 
 async function fetchUserCurrentLocation() {
   // retrieves user IP location data from api
+  let apiURL = `/.netlify/functions/getCurrentLocation`;
+  console.log("location api url: ", apiURL);
   try {
-    const response = await fetch(`${APP_IP_INFO_ENDPOINT}?apiKey=${APP_IP_INFO_API_KEY}`, {
+    const response = await fetch(`${apiURL}`, {
       mode: 'cors',
       headers: {
           'Content-Type': 'application/json',
@@ -30,11 +32,9 @@ async function fetchUserCurrentLocation() {
     if (data.hasOwnProperty('error')) {
       throw(data.error)
     }else{
-      console.log('No error');
-      const location = {'name': data.city.name, 'country': data.country.name, 'lat': data.location.latitude, 'lon': data.location.longitude}
-
-      setLocation(JSON.stringify(location));
-      return location;
+      console.log('No error location value: ', data);
+      setLocation(JSON.stringify(data));
+      return data
     }
   } catch (error) {
     console.log(error);
@@ -68,17 +68,25 @@ function formatDate(unformattedDate) {
 
 async function fetchWeatherForecast(location, nbrDays) {
   // returns weather forecast for the  location and number of days provided
-  try {
 
-    const response = await fetch(`${APP_WEATHER_API_ENDPOINT}?q=${location}&key=${APP_WEATHER_API_KEY}&days=${nbrDays}&aqi=no&alerts=no`, {
+  let weatherForecastApiURL = `/.netlify/functions/getWeatherForecast?location=${location}&nbrDays=${nbrDays}`;
+
+  console.log('weatherForecastAPIURL: ', weatherForecastApiURL);
+  try {
+    
+    console.log('location in fetchWeatherForecast: ', location);
+    const response = await fetch(`${weatherForecastApiURL}`,
+    {
       mode: 'cors',
       headers: {
           'Content-Type': 'application/json',
       }
-    });
+    })
+    console.log('Response: ', response);
     const data = await response.json();
     
     if (data.hasOwnProperty('error')) {
+      console.log('data has error: ', error);
       throw(data.error)
     }else{
       console.log('Weather forecast info: ', data);
@@ -87,6 +95,7 @@ async function fetchWeatherForecast(location, nbrDays) {
     }
     
   } catch (error) {
+    console.log('Error fetching weather forecast: ', error);
     throw(error);
   }
 }
@@ -109,6 +118,7 @@ async function getCurrentLocation() {
 }
 
  async function getLocationWeatherForecast(location, nbrDays) {
+  console.log(('location in getLocationWEather: ', location));
   let weatherForecast = JSON.parse(localStorage.getItem(location));
   if ( weatherForecast ) {
     return weatherForecast;
@@ -152,7 +162,7 @@ function displayWeatherForecast (weatherForecasts) {
       forecastDate = formatDate(incrementDate(i)); 
       const forecast = weatherForecasts[i];
       let forecastDiv = document.querySelector(`.today-plus-${i}`);
-  
+      
       forecastDiv.innerHTML = `
        ${ i === 1 ? `<h3>Tomorrow</h3>` : `<h3>${forecastDate}</h3>`}
         
@@ -170,7 +180,7 @@ function displayWeatherForecast (weatherForecasts) {
               </span>
         </p>
       `
-      
+      forecastDiv.style.display = 'flex'; // display forecast div
     }
     
   }
@@ -338,7 +348,20 @@ function main(e) {
     // userLocation from localStorage uses property name to return location string
     // userLocation from API uses city.name to return location string
     currentUsrLocation = '';
-    currentLocation.hasOwnProperty('name') ? currentUsrLocation = currentLocation.name : currentUsrLocation = currentLocation.city.name;
+    console.log('currentLocation: ', currentLocation);
+     
+    if (currentLocation.hasOwnProperty('name')) {
+
+      currentUsrLocation = currentLocation.name
+      
+    } else if (currentLocation.hasOwnProperty('city')) { 
+
+      currentUsrLocation = currentLocation.city.name;
+    } else {
+      console.log('Invalid current location', currentLocation);
+      throw("Invalid current location: ", currentLocation)
+    }
+
     getLocationWeatherForecast(currentLocation.name, forecastNbrDays).then( (weatherInfo) => {
       console.log('weather in global object: ', weatherInfo);
       if (weatherInfo) {
@@ -347,11 +370,13 @@ function main(e) {
         displayWeatherForecast(weatherInfo.forecast.forecastday);
         displayCurrentWeatherHighlights(weatherInfo.current);
       } else {
+        console.log('Weather forecast info undefined!');
         throw('Weather forecast info undefined!');
       }
     })
   }).catch((error) => {
-    throw(error)
+    console.log("error: ", error);
+    throw("Error getting location weather forecast: ", error)
   })
 
 }

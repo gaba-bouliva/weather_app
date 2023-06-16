@@ -164,6 +164,7 @@ div.forecast {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  display: none;
 }
 
 section.today-highlights {

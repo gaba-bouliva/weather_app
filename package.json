@@ -4,10 +4,12 @@
   "description": "Weather Info App",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --config webpack.dev.js --mode=development --watch",
+    "dev": "netlify dev",
     "prod": "webpack --config webpack.config.js --mode=production",
-    "build": "npm run prod",
-    "deploy": "gh-pages -d public"
+    "webpack-build": "webpack --config webpack.dev.js --mode=development --watch",
+    "prod-build": "npm run prod",
+    "deploy": "gh-pages -d public",
+    "build": "npm run-script"
   },
   "repository": {
     "type": "git",
@@ -26,5 +28,8 @@
     "gh-pages": "^5.0.0",
     "webpack": "^5.85.0",
     "webpack-cli": "^5.1.1"
+  },
+  "dependencies": {
+    "axios": "^1.4.0"
   }
 }
