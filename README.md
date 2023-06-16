@@ -60,9 +60,9 @@ Realized by <a href="https://github.com/gaba-bouliva" target="_blank">Gaba Bouli
 
 This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges/mM1UIenRhK808W8qmLWv) and as a submission to [TheOdinProject](https://www.theodinproject.com/lessons/node-path-javascript-weather-app). Both challenges had as exercise to build a weather application to complete the given user stories
 
-- User can see city weather as default, preferably my current location
+- User can see city weather as default, preferably user current location
 - User can search for city
-- User can see weather of today and the next 5 days
+- User can see weather of today and the next 2 to 5 days
 - User can see the date and location of the weather
 - User can see according to image for each type of weather
 - User can see the min and max degree each day
@@ -70,7 +70,7 @@ This application/site was created as a submission to a [DevChallenges](https://d
 - User can see humidity percentage
 - User can see a visibility indicator
 - User can see the air pressure number
-- (optional): User can request my current location weather
+- (optional): User can request user's current location weather
 - (optional): User can convert temperature in Celcius to Fahrenheit and vice versa
 
 ## Acknowledgements
